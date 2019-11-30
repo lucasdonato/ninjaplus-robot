@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20191130 11:58:48.789" generator="Robot 3.1.2 (Python 2.7.17 on win32)">
+<suite source="c:\qaninja\ninjaplus\specs\api\post_user.robot" id="s1" name="Post User">
+<test id="s1-t1" name="Create a new user">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>nplus</arg>
+<arg>http://ninjaplus-api:3000</arg>
+</arguments>
+<msg timestamp="20191130 11:58:49.042" level="INFO">Creating Session using : alias=nplus, url=http://ninjaplus-api:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20191130 11:58:49.042" starttime="20191130 11:58:49.042"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>full_name=Bruce Wayne</arg>
+<arg>email=bruce@wayne.com</arg>
+<arg>password=pwd123</arg>
+</arguments>
+<assign>
+<var>&amp;{body}</var>
+</assign>
+<msg timestamp="20191130 11:58:49.044" level="INFO">&amp;{body} = { full_name=Bruce Wayne | email=bruce@wayne.com | password=pwd123 }</msg>
+<status status="PASS" endtime="20191130 11:58:49.044" starttime="20191130 11:58:49.043"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20191130 11:58:49.046" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<status status="PASS" endtime="20191130 11:58:49.046" starttime="20191130 11:58:49.046"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>nplus</arg>
+<arg>/user</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20191130 11:58:49.047" level="INFO">POST Request using : uri=/user, files=None, params=None, timeout=None, allow_redirects=True
+headers={'Connection': 'keep-alive', u'Content-Type': u'application/json', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'User-Agent': 'python-requests/2.22.0'} 
+data={"full_name": "Bruce Wayne", "email": "bruce@wayne.com", "password": "pwd123"} 
+json=None</msg>
+<msg timestamp="20191130 11:58:49.198" level="INFO">${response} = &lt;Response [409]&gt;</msg>
+<status status="PASS" endtime="20191130 11:58:49.198" starttime="20191130 11:58:49.047"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+</assign>
+<msg timestamp="20191130 11:58:49.211" level="INFO">${code} = 409</msg>
+<status status="PASS" endtime="20191130 11:58:49.211" starttime="20191130 11:58:49.211"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20191130 11:58:49.213" level="FAIL">409 != 200</msg>
+<status status="FAIL" endtime="20191130 11:58:49.213" starttime="20191130 11:58:49.212"></status>
+</kw>
+<status status="FAIL" endtime="20191130 11:58:49.214" critical="yes" starttime="20191130 11:58:49.041">409 != 200</status>
+</test>
+<status status="FAIL" endtime="20191130 11:58:49.220" starttime="20191130 11:58:48.792"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="Post User" pass="0">Post User</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
