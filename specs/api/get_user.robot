@@ -7,7 +7,6 @@ Test: Unique Id
     ${response}=                        Get User                ${user_id}
     ${code}=                            convert to string       ${response.status_code}
     should be equal                     ${code}                 200
-    dictionary should contain value     ${response.json()}      Sony
     dictionary should contain value     ${response.json()}      papito@ninjaplus.com
 
 Test: User not found
